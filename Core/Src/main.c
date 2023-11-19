@@ -92,17 +92,11 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   int count = 0;
-  while (count < 4)
+  while (count < 2)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-
-
-
-//	  if (switch) {
-//		  both LEDs turn on here
-//	  }`
 
 
 	  HAL_GPIO_WritePin(LDM_GPIO_Port, LDM_Pin, GPIO_PIN_SET);
@@ -116,10 +110,6 @@ int main(void)
 
 	  HAL_GPIO_WritePin(LDM_GPIO_Port, LDM_Pin, GPIO_PIN_RESET);
 	  HAL_Delay(1000);
-
-
-	  //if switch turns off => HAL_GPIO_WritePin(GPIOC, LDM_Pin|Indicator_Pin, GPIO_PIN_RESET);
-
 
 	  count++;
   }

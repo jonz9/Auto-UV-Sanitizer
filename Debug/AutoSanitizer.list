@@ -39,9 +39,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  17 .debug_macro  00014220  00000000  00000000  00024ad3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00004d87  00000000  00000000  00038cf3  2**0
+ 18 .debug_line   00004d85  00000000  00000000  00038cf3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    0007e46a  00000000  00000000  0003da7a  2**0
+ 19 .debug_str    0007e46a  00000000  00000000  0003da78  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  20 .debug_frame  00000e20  00000000  00000000  000bbee4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
@@ -390,11 +390,11 @@ int main(void)
   int count = 0;
  80004e2:	2300      	movs	r3, #0
  80004e4:	607b      	str	r3, [r7, #4]
-  while (count < 4)
+  while (count < 2)
  80004e6:	e02b      	b.n	8000540 <main+0x70>
-//	  if (switch) {
-//		  both LEDs turn on here
-//	  }`
+    /* USER CODE END WHILE */
+
+    /* USER CODE BEGIN 3 */
 
 
 	  HAL_GPIO_WritePin(LDM_GPIO_Port, LDM_Pin, GPIO_PIN_SET);
@@ -441,17 +441,13 @@ int main(void)
  8000532:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8000536:	f000 f9cb 	bl	80008d0 <HAL_Delay>
 
-
-	  //if switch turns off => HAL_GPIO_WritePin(GPIOC, LDM_Pin|Indicator_Pin, GPIO_PIN_RESET);
-
-
 	  count++;
  800053a:	687b      	ldr	r3, [r7, #4]
  800053c:	3301      	adds	r3, #1
  800053e:	607b      	str	r3, [r7, #4]
-  while (count < 4)
+  while (count < 2)
  8000540:	687b      	ldr	r3, [r7, #4]
- 8000542:	2b03      	cmp	r3, #3
+ 8000542:	2b01      	cmp	r3, #1
  8000544:	ddd0      	ble.n	80004e8 <main+0x18>
  8000546:	2300      	movs	r3, #0
   }
