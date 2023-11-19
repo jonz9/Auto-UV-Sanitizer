@@ -91,29 +91,37 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
+  int count = 0;
+  while (count < 4)
   {
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
-	  HAL_Delay(5000);
-	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
-	  HAL_Delay(2000);
-
-//
-//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_SET);
-//	  HAL_Delay(1000);
-//	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
-//	  HAL_Delay(1000);
 
 
 
+//	  if (switch) {
+//		  both LEDs turn on here
+//	  }`
 
-//	  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_9);
-//	  HAL_
 
-	//	  HAL_Delay(100);
+	  HAL_GPIO_WritePin(LDM_GPIO_Port, LDM_Pin, GPIO_PIN_SET);
+
+	  for (int j = 0; j < 10; j++) {
+		  HAL_GPIO_WritePin(GPIOC, Indicator_Pin, GPIO_PIN_SET);
+		  HAL_Delay(2000);
+		  HAL_GPIO_WritePin(GPIOC, Indicator_Pin, GPIO_PIN_RESET);
+		  HAL_Delay(1000);
+	  }
+
+	  HAL_GPIO_WritePin(LDM_GPIO_Port, LDM_Pin, GPIO_PIN_RESET);
+	  HAL_Delay(1000);
+
+
+	  //if switch turns off => HAL_GPIO_WritePin(GPIOC, LDM_Pin|Indicator_Pin, GPIO_PIN_RESET);
+
+
+	  count++;
   }
   /* USER CODE END 3 */
 }
@@ -171,10 +179,21 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, LDM_Pin|Indicator_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
+  /*Configure GPIO pins : LDM_Pin Indicator_Pin */
+  GPIO_InitStruct.Pin = LDM_Pin|Indicator_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_MEDIUM;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /*Configure GPIO pin : LD2_Pin */
   GPIO_InitStruct.Pin = LD2_Pin;
